@@ -3,6 +3,9 @@ Bot otomatis yang mengakses API `mainnet.capfizz.com` menggunakan proxy untuk be
 
 REGISTER
 ## https://mainnet.capfizz.com/register?ref=XE3P0O
+
+ambil token seperti gambar
+![banner]()
 ## 📌 Fitur
 - 🔹 **Autentikasi Otomatis**: Login dengan sesi yang disimpan di `token.txt`
 - 🔹 **Pemilihan Proxy**: Gunakan daftar proxy dari `proxy.txt`
