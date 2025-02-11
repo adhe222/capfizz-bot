@@ -40,6 +40,7 @@ python bot.py
 ```
 
 ---
+![banner](./img2.png)
 
 ## ⚙️ Konfigurasi Tambahan
 - **Mengubah interval waktu**: Edit `time.sleep(60)` di script utama untuk menyesuaikan delay.
