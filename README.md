@@ -5,7 +5,7 @@ REGISTER
 ## https://mainnet.capfizz.com/register?ref=XE3P0O
 
 ## Ambil token seperti di gambar
-![banner](./img.png)
+![banner](./cookie.png)
 ## 📌 Fitur
 - 🔹 **Autentikasi Otomatis**: Login dengan sesi yang disimpan di `token.txt`
 - 🔹 **Pemilihan Proxy**: Gunakan daftar proxy dari `proxy.txt`
