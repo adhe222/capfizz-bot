@@ -4,10 +4,10 @@ Bot otomatis yang mengakses API `mainnet.capfizz.com` menggunakan proxy untuk be
 REGISTER
 ## https://mainnet.capfizz.com/register?ref=XE3P0O
 
-## Ambil token seperti di gambar
+## Ambil cookie seperti di gambar
 ![banner](./cookie.png)
 ## 📌 Fitur
-- 🔹 **Autentikasi Otomatis**: Login dengan sesi yang disimpan di `token.txt`
+- 🔹 **Autentikasi Otomatis**: Login dengan sesi yang disimpan di `cookie.txt`
 - 🔹 **Pemilihan Proxy**: Gunakan daftar proxy dari `proxy.txt`
 - 🔹 **Monitoring Uptime**: Mengecek status uptime secara berkala
 - 🔹 **Mining Node**: Mengirim request mining otomatis
@@ -31,7 +31,7 @@ pip install -r requirements.txt
 ```
 
 ### 3️⃣ **Konfigurasi**
-- **Token Autentikasi**: Simpan token sesi di `token.txt`
+- **Cookie Autentikasi**: Simpan cookie sesi di `cookie.txt`
 - **Proxy**: Tambahkan daftar proxy di `proxy.txt`
 
 ### 4️⃣ **Menjalankan Bot**
