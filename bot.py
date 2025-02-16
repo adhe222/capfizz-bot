@@ -1,4 +1,3 @@
-import requests
 import asyncio
 import aiohttp
 from colorama import init, Fore, Style
@@ -50,43 +49,47 @@ def load_proxies(filename="proxy.txt"):
             for line in file:
                 proxy = line.strip()
                 if proxy:
+                    if not proxy.startswith("http://") and not proxy.startswith("https://"):
+                        proxy = f"http://{proxy}"
                     proxies.append(proxy)
     except FileNotFoundError:
         print(Fore.RED + Style.BRIGHT + "Error: proxy.txt not found.")
     return proxies
 
-async def make_get_request(session, url, proxy):
+async def make_request(session, method, url, proxy=None, data=None):
     try:
-        async with session.get(url, headers=headers, proxy=proxy) as response:
+        async with session.request(method, url, headers=headers, proxy=proxy, json=data) as response:
             text = await response.text()
-            print(Fore.CYAN + Style.BRIGHT + f"GET {url} (Proxy: {proxy}): {response.status}")
+            print(Fore.CYAN + Style.BRIGHT + f"{method.upper()} {url} (Proxy: {proxy}): {response.status}")
+            try:
+                json_data = await response.json()
+                print(Fore.YELLOW + Style.BRIGHT + f"Response: {json_data}")
+            except Exception:
+                print(Fore.YELLOW + Style.BRIGHT + f"Response: {text}")
     except Exception as e:
-        print(Fore.RED + Style.BRIGHT + f"GET {url} failed (Proxy: {proxy}): {str(e)}")
-
-async def make_post_request(session, url, proxy, data):
-    try:
-        async with session.post(url, json=data, headers=headers, proxy=proxy) as response:
-            text = await response.text()
-            print(Fore.BLUE + Style.BRIGHT + f"POST {url} (Proxy: {proxy}): {response.status}")
-    except Exception as e:
-        print(Fore.RED + Style.BRIGHT + f"POST {url} failed (Proxy: {proxy}): {str(e)}")
+        print(Fore.RED + Style.BRIGHT + f"{method.upper()} {url} failed (Proxy: {proxy}): {str(e)}")
 
 async def perform_requests():
     load_cookies()
     proxies = load_proxies()
     base_url = "https://mainnet.capfizz.com/api"
+    endpoints = [
+        "/user/extension/init",
+        "/user/extension/check-auth",
+        "/user/extension",
+        "/user/extension/uptime-static",
+        "/ping",
+        "/user/point",
+        "/user/info/"
+    ]
+
     async with aiohttp.ClientSession() as session:
         while True:
             for proxy in proxies:
                 print(Fore.WHITE + Style.BRIGHT + f"\nUsing Proxy: {proxy}")
-                await make_get_request(session, f"{base_url}/user/extension/init", proxy)
-                await make_get_request(session, f"{base_url}/user/extension/check-auth", proxy)
-                await make_get_request(session, f"{base_url}/user/extension", proxy)
-                await make_get_request(session, f"{base_url}/user/extension/uptime-static", proxy)
-                await make_get_request(session, f"{base_url}/ping", proxy)
-                await make_get_request(session, f"{base_url}/user/point", proxy)
-                await make_get_request(session, f"{base_url}/user/info/", proxy)
-                await make_post_request(session, f"{base_url}/node/mining", proxy, {"key": "value"})
+                for endpoint in endpoints:
+                    await make_request(session, "GET", f"{base_url}{endpoint}", proxy)
+                await make_request(session, "POST", f"{base_url}/node/mining", proxy, {"key": "value"})
                 await asyncio.sleep(1)
             print(Fore.YELLOW + Style.BRIGHT + f"\nSyncing proxies at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
             await asyncio.sleep(60)
