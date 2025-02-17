@@ -20,7 +20,7 @@ headers = {
     "Accept-Language": "en-US,en;q=0.9",
     "Connection": "keep-alive",
     "Host": "mainnet.capfizz.com",
-    "Referer": "https://mainnet.capfizz.com/dashboard/",
+    "Referer": "https://mainnet.capfizz.com/register?ref=CWQ9LR",
     "Sec-Fetch-Dest": "empty",
     "Sec-Fetch-Mode": "cors",
     "Sec-Fetch-Site": "same-origin",
